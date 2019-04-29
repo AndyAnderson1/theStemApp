@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "714359048605",
+    "firebase_url": "https://eventme-c7247.firebaseio.com",
+    "project_id": "eventme-c7247",
+    "storage_bucket": "eventme-c7247.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714359048605:android:0b3e98dd2fcf2549",
+        "android_client_info": {
+          "package_name": "com.example.steemapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714359048605-5mup4rl1tls72up5gmb070jr38ct5511.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.steemapp",
+            "certificate_hash": "120238286937e3b547729cfd16877b5fe8d307f6"
+          }
+        },
+        {
+          "client_id": "714359048605-dtoqbp47gfgic099o1b2cfl9pcr8piqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA291XM_-lC-oswbmFAWCaBPoocvBFlvAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714359048605-dtoqbp47gfgic099o1b2cfl9pcr8piqt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "714359048605-0as3p076tbkjjb67sj06p3qjbim5okp1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "WafMan.EventMe"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714359048605:android:629c9ccac6866abe",
+        "android_client_info": {
+          "package_name": "com.example.thestemapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714359048605-id00osbmpqqqvsijhb4qej7u8op79ug1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thestemapp",
+            "certificate_hash": "120238286937e3b547729cfd16877b5fe8d307f6"
+          }
+        },
+        {
+          "client_id": "714359048605-dtoqbp47gfgic099o1b2cfl9pcr8piqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA291XM_-lC-oswbmFAWCaBPoocvBFlvAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714359048605-dtoqbp47gfgic099o1b2cfl9pcr8piqt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "714359048605-0as3p076tbkjjb67sj06p3qjbim5okp1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "WafMan.EventMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
