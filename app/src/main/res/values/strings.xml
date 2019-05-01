@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">theStemApp</string>
+    <string name="title_activity_teacher_page2">teacher_page2</string>
+    <string name="title_activity_teacher">teacher</string>
 </resources>
