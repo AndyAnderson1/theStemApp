@@ -25,6 +25,7 @@ public class User {
     {
         try {
             FirebaseDatabase fb = FirebaseDatabase.getInstance();
+            //Database Path To Get Point Values From User
             DatabaseReference ref = fb.getReference();
 
             ref.addValueEventListener(new ValueEventListener() {
@@ -44,6 +45,7 @@ public class User {
         }
     }
 
+    //Overwrites a new point value into the database for a user
     public void setPoint()
     {
 

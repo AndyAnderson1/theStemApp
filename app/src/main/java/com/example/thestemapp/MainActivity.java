@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private DatabaseReference mDatabase;
 
-    private User currentUser = null;
+    private static User currentUser = null;
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            System.out.println(account.getEmail());
+            //System.out.println(account.getEmail());
 
             writeNewUser(account.getId(), account.getGivenName(), account.getEmail());
             // Signed in successfully, show authenticated UI.
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public User getCurrentUser()
+    public static User getCurrentUser()
     {
         return currentUser;
     }
