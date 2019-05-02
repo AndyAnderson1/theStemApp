@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 updateUI(account);
             }
             else if(account.getEmail().indexOf("@aisd.net") > -1) {
-                Intent intent = new Intent(this, TeacherActivity.class);
+                Intent intent = new Intent(this,Teacher_Page.class);
                 startActivity(intent);
             }
             else {
@@ -106,16 +106,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
+        User user = new User(name, email,userId);
         mDatabase = FirebaseDatabase.getInstance().getReference("android");
         Map <String, User> userMap = new HashMap <>();
         userMap.put(email.substring(0, email.indexOf("@")), user);
         mDatabase.child("users").setValue(userMap);
+        mDatabase.child("users").child("UUID").setValue(userId);
     }
 
     private void updateUI(GoogleSignInAccount user) {
         if (user != null) {
-            currentUser = new User(user.getDisplayName(), user.getEmail());
+            currentUser = new User(user.getDisplayName(), user.getEmail(), user.getId());
             Intent intent = new Intent(this, StudentActivity.class);
             startActivity(intent);
         } else {

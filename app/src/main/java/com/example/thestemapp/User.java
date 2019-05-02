@@ -8,17 +8,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.UUID;
+
 public class User {
 
     private String user;
     private String mail;
+    private String userId;
     private int point;
 
-    public User(String name, String email)
+    public User(String name, String email, String uId)
     {
         user = name;
         mail = email;
         getPoints();
+        userId=UUID.randomUUID().toString();
     }
 
     public void getPoints()
@@ -44,14 +48,27 @@ public class User {
         }
     }
 
-    public void setPoint()
+    public void setPoint(final int x)
     {
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fb.getReference();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                point+= x;
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public String getUser() {
         return user;
     }
+    public String getUserId(){return userId;}
 
     public void setUser(String user) {
         this.user = user;
