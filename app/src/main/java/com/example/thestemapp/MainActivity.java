@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static User currentUser = null;
 
+    private Button skip;
+
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
 
@@ -38,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Google = (SignInButton) findViewById(R.id.btnGoo);
+
+        skip = (Button) findViewById(R.id.skip);
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                teacherLogin();
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("573992157091-kbmq4speoh25flir1uo254i3b55dvjls.apps.googleusercontent.com").requestEmail().build();
@@ -92,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 updateUI(account);
             }
             else if(account.getEmail().indexOf("@aisd.net") > -1) {
-                Intent intent = new Intent(this, TeacherActivity.class);
-                startActivity(intent);
+                updateTeacher(account);
             }
             else {
 
@@ -120,6 +131,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
         }
+    }
+
+    private void updateTeacher(GoogleSignInAccount user) {
+        if (user != null) {
+            currentUser = new User(user.getDisplayName(), user.getEmail());
+            Intent intent = new Intent(this, TeacherActivity.class);
+            startActivity(intent);
+        } else {
+        }
+    }
+
+    public void teacherLogin()
+    {
+        currentUser = new User("Nicholas", "fortnite");
+        Intent intent = new Intent(this, TeacherActivity.class);
+        startActivity(intent);
     }
 
     public static User getCurrentUser()

@@ -5,9 +5,11 @@ public class Event
     private String title, mentor;
     private int size;
 
-    public Event()
+    public Event(String name, String teacher, int students)
     {
-
+        title = name;
+        mentor = teacher;
+        size = students;
     }
 
     public String getTitle() {
