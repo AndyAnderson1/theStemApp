@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             //System.out.println(account.getEmail());
 
-            writeNewUser(account.getId(), account.getGivenName(), account.getEmail());
+            //writeNewUser(account.getId(), account.getGivenName(), account.getEmail());
             // Signed in successfully, show authenticated UI.
             if(account.getEmail().indexOf("@student.aisd.net") > -1) {
                 updateUI(account);
@@ -106,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-        mDatabase = FirebaseDatabase.getInstance().getReference("android");
-        Map <String, User> userMap = new HashMap <>();
-        userMap.put(email.substring(0, email.indexOf("@")), user);
-        mDatabase.child("users").setValue(userMap);
+        //User user = new User(name, email);
+        //mDatabase = FirebaseDatabase.getInstance().getReference("android");
+        //Map <String, User> userMap = new HashMap <>();
+        //userMap.put(email.substring(0, email.indexOf("@")), user);
+        //mDatabase.child("users").setValue(userMap);
     }
 
     private void updateUI(GoogleSignInAccount user) {

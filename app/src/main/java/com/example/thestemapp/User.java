@@ -23,32 +23,32 @@ public class User {
 
     public void getPoints()
     {
-        try {
-            FirebaseDatabase fb = FirebaseDatabase.getInstance();
-            //Database Path To Get Point Values From User
-            DatabaseReference ref = fb.getReference();
-
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        //Database Path To Get Point Values From User
+        DatabaseReference ref = fb.getReference("Users/" + user + "/Points");
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    point = dataSnapshot.getValue(Integer.class);
+                    try {
+                        point = dataSnapshot.getValue(Integer.class);
+                    } catch (NullPointerException e) {
+                        point = 0;
+                        setPoint("Users/" + user + "/Points");
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
-        } catch (Exception e) {
-            point = 0;
-
-        }
     }
 
     //Overwrites a new point value into the database for a user
-    public void setPoint()
+    public void setPoint(String path)
     {
-
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference db = fb.getReference(path);
+        db.setValue(point);
     }
 
     public String getUser() {
@@ -65,6 +65,12 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public void increasePoints()
+    {
+        point++;
+        setPoint("Users/" + user + "/Points");
     }
 
     public int pointValue()
