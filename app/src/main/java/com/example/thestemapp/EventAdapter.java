@@ -33,11 +33,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
     public class EventHolder extends RecyclerView.ViewHolder
     {
         public TextView name;
-        public Button approve;
 
         public EventHolder(View v)
         {
             super(v);
+
+            name = (TextView) v.findViewById(R.id.evtName);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,6 +73,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
     public void onBindViewHolder(EventAdapter.EventHolder viewHolder, int position)
     {
         Event event = list.get(position);
+
+        TextView text = viewHolder.name;
+        text.setText(event.getTitle());
     }
 
     @Override

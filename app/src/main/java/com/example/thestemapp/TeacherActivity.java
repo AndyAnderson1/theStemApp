@@ -6,10 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TeacherActivity extends AppCompatActivity {
 
     Button Create;
     RecyclerView recyclerView;
+
+    //
+    List <Event> events = new ArrayList <>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +24,7 @@ public class TeacherActivity extends AppCompatActivity {
 
         Create = (Button) findViewById(R.id.event);
         recyclerView = (RecyclerView) findViewById(R.id.recView);
+        EventAdapter evtAdapter = new EventAdapter();
 
         Create.setOnClickListener(new View.OnClickListener() {
             @Override
