@@ -1,6 +1,7 @@
 package com.example.thestemapp;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class TeacherActivity extends AppCompatActivity {
 
     Button Create;
     RecyclerView recyclerView;
+    EventAdapter eventAdapter;
 
     //List of events from database
     List<Event> events = new ArrayList <>();
@@ -33,18 +35,22 @@ public class TeacherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher);
 
         //Set contents of events from database
-        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        final FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentUser().getUser());
 
         dr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try
+                GenericTypeIndicator <List <Event>> temp = new GenericTypeIndicator <List <Event>>() {};
+                if(dataSnapshot.getValue(temp) != null)
                 {
-                    events = dataSnapshot.getValue(GenericTypeIndicator);
+                    System.out.println(dataSnapshot.getValue(temp));
+                    setValue(dataSnapshot.getValue(temp));
+                    updateUI(events.size());
                 }
-                catch (NullPointerException e){
-                    setEvents();
+                else
+                {
+
                 }
             }
 
@@ -55,12 +61,13 @@ public class TeacherActivity extends AppCompatActivity {
         });
 
         Create = (Button) findViewById(R.id.event);
+
         recyclerView = (RecyclerView) findViewById(R.id.recView);
-        EventAdapter evtAdapter = new EventAdapter(events);
-        recyclerView.setAdapter(evtAdapter);
+        eventAdapter = new EventAdapter(events);
+        recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        evtAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+        eventAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 //New Checking Activity
@@ -75,16 +82,19 @@ public class TeacherActivity extends AppCompatActivity {
         });
     }
 
-    public void setEvents()
-    {
-        FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference dr = fb.getReference("Events/" + MainActivity.getCurrentUser().getUser());
-        dr.setValue(events);
-    }
-
     public void startCreate()
     {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
+    }
+
+    public void setValue(List<Event> list)
+    {
+        events.addAll(list);
+    }
+
+    public void updateUI(int end)
+    {
+        eventAdapter.notifyItemRangeChanged(0, end);
     }
 }

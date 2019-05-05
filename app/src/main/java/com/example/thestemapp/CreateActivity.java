@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -45,20 +46,24 @@ public class CreateActivity extends AppCompatActivity {
 
     public void createEvent()
     {
-        Event evt = new Event(event.getText().toString(), teach.getText().toString(), Integer.valueOf(points.getText().toString()));
-
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentUser().getUser());
 
-        dr.addValueEventListener(new ValueEventListener() {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try
+                GenericTypeIndicator <List <Event>> temp = new GenericTypeIndicator <List <Event>>() {};
+                if(dataSnapshot.getValue(temp) != null)
                 {
-                    tempList = dataSnapshot.getValue(List.class);
-                } catch(Exception e)
+                    tempList.addAll(dataSnapshot.getValue(temp));
+                    tempList.add(new Event(event.getText().toString(), teach.getText().toString(), Integer.valueOf(points.getText().toString())));
+                    addEvent(tempList);
+                }
+                else
                 {
-
+                    //System.out.println("EMPTY");
+                    tempList.add(new Event(event.getText().toString(), teach.getText().toString(), Integer.valueOf(points.getText().toString())));
+                    addEvent(tempList);
                 }
             }
 
@@ -68,10 +73,14 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-        tempList.add(evt);
-        dr.setValue(tempList);
-
         Intent intent = new Intent(this, TeacherActivity.class);
         startActivity(intent);
+    }
+
+    public void addEvent(List<Event> list)
+    {
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference db = fb.getReference("Events/" + MainActivity.getCurrentUser().getUser());
+        db.setValue(list);
     }
 }

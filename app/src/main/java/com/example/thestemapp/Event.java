@@ -5,6 +5,13 @@ public class Event
     private String title, mentor;
     private int size;
 
+    public Event()
+    {
+        title = "Fortnite";
+        mentor = "Bunty";
+        size = 8;
+    }
+
     public Event(String name, String teacher, int students)
     {
         title = name;
@@ -34,5 +41,10 @@ public class Event
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public String toString()
+    {
+        return title;
     }
 }

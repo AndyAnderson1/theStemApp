@@ -15,6 +15,6 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        MainActivity.getCurrentUser().pointValue();
+        MainActivity.getCurrentUser().increasePoints();
     }
 }
