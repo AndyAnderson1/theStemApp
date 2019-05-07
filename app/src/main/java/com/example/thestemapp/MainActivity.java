@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private static User currentUser = null;
+    private static Teacher currentTeacher = null;
 
     private Button skip;
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateTeacher(GoogleSignInAccount user) {
         if (user != null) {
-            currentUser = new User(user.getDisplayName(), user.getEmail());
+            currentTeacher = new Teacher(user.getDisplayName());
             Intent intent = new Intent(this, TeacherActivity.class);
             startActivity(intent);
         } else {
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void teacherLogin()
     {
-        currentUser = new User("Nicholas", "fortnite");
+        currentTeacher = new Teacher("Nicholas");
         Intent intent = new Intent(this, TeacherActivity.class);
         startActivity(intent);
     }
@@ -153,4 +154,5 @@ public class MainActivity extends AppCompatActivity {
     {
         return currentUser;
     }
+    public static Teacher getCurrentTeacher(){ return currentTeacher; }
 }

@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher
@@ -29,21 +30,23 @@ public class Teacher
 
     public void retrieveEvents()
     {
-        final FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentUser().getUser());
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference dr = fb.getReference("Events/"+user);
 
         dr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator <List <Event>> temp = new GenericTypeIndicator <List <Event>>() {};
-                if(dataSnapshot.getValue(temp) != null)
+                System.out.println("FWEOIFJWEIOFJWEOJFWEIOFJ");
+                try
                 {
-                    System.out.println(dataSnapshot.getValue(temp));
-                    setValue(dataSnapshot.getValue(temp));
+                    GenericTypeIndicator<List<Event>> t = new GenericTypeIndicator <List <Event>>() {};
+                    setValue(dataSnapshot.getValue(t));
+                    System.out.println(events);
                 }
-                else
+                catch(Exception e)
                 {
-
+                    System.out.println("wefoijfaweofjiweiof");
+                    events = new ArrayList <>();
                 }
             }
 
@@ -57,5 +60,21 @@ public class Teacher
     public void setValue(List<Event> list)
     {
         events.addAll(list);
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public List <Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List <Event> events) {
+        this.events = events;
     }
 }

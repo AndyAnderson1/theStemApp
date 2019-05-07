@@ -24,7 +24,6 @@ public class User {
     public void getPoints()
     {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        //Database Path To Get Point Values From User
         DatabaseReference ref = fb.getReference("Users/" + user + "/Points");
             ref.addValueEventListener(new ValueEventListener() {
                 @Override

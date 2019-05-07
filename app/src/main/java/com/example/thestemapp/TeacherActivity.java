@@ -26,7 +26,6 @@ public class TeacherActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     EventAdapter eventAdapter;
 
-    //List of events from database
     List<Event> events = new ArrayList <>();
 
     @Override
@@ -34,31 +33,8 @@ public class TeacherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        //Set contents of events from database
-        final FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentUser().getUser());
-
-        dr.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator <List <Event>> temp = new GenericTypeIndicator <List <Event>>() {};
-                if(dataSnapshot.getValue(temp) != null)
-                {
-                    System.out.println(dataSnapshot.getValue(temp));
-                    setValue(dataSnapshot.getValue(temp));
-                    updateUI(events.size());
-                }
-                else
-                {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        System.out.println(MainActivity.getCurrentTeacher().getEvents());
+        events = MainActivity.getCurrentTeacher().getEvents();
 
         Create = (Button) findViewById(R.id.event);
 
