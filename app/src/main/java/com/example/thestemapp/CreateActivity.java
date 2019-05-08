@@ -47,7 +47,7 @@ public class CreateActivity extends AppCompatActivity {
     public void createEvent()
     {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentUser().getUser());
+        DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentTeacher().getUser());
 
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,7 +80,7 @@ public class CreateActivity extends AppCompatActivity {
     public void addEvent(List<Event> list)
     {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference db = fb.getReference("Events/" + MainActivity.getCurrentUser().getUser());
+        DatabaseReference db = fb.getReference("Events/" + MainActivity.getCurrentTeacher().getUser());
         db.setValue(list);
     }
 }

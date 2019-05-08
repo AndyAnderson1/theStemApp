@@ -33,12 +33,29 @@ public class TeacherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        System.out.println(MainActivity.getCurrentTeacher().getEvents());
-        events = MainActivity.getCurrentTeacher().getEvents();
+        final FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentTeacher().getUser());
+
+        ValueEventListener vl = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<Event>> t = new GenericTypeIndicator <List <Event>>() {};
+                setValue(dataSnapshot.getValue(t));
+                eventAdapter.notifyItemRangeChanged(0, events.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        dr.addValueEventListener(vl);
 
         Create = (Button) findViewById(R.id.event);
 
         recyclerView = (RecyclerView) findViewById(R.id.recView);
+        //System.out.println(events);
         eventAdapter = new EventAdapter(events);
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,7 +63,7 @@ public class TeacherActivity extends AppCompatActivity {
         eventAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                //New Checking Activity
+
             }
         });
 
@@ -61,6 +78,12 @@ public class TeacherActivity extends AppCompatActivity {
     public void startCreate()
     {
         Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
+    }
+
+    public void startEvent()
+    {
+        Intent intent = new Intent(this, EventActivity.class);
         startActivity(intent);
     }
 

@@ -25,14 +25,16 @@ public class User {
     {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference ref = fb.getReference("Users/" + user + "/Points");
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
                         point = dataSnapshot.getValue(Integer.class);
+                        System.out.println(point + " " + user);
                     } catch (NullPointerException e) {
                         point = 0;
                         setPoint("Users/" + user + "/Points");
+                        System.out.println("UPOEDUI");
                     }
                 }
 
@@ -74,6 +76,7 @@ public class User {
 
     public int pointValue()
     {
+        getPoints();
         return point;
     }
 }
