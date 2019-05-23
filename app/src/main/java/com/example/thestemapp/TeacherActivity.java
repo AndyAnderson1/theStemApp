@@ -26,6 +26,8 @@ public class TeacherActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     EventAdapter eventAdapter;
 
+    public static int viewPos;
+
     List<Event> events = new ArrayList <>();
 
     @Override
@@ -55,7 +57,6 @@ public class TeacherActivity extends AppCompatActivity {
         Create = (Button) findViewById(R.id.event);
 
         recyclerView = (RecyclerView) findViewById(R.id.recView);
-        //System.out.println(events);
         eventAdapter = new EventAdapter(events);
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -63,7 +64,8 @@ public class TeacherActivity extends AppCompatActivity {
         eventAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-
+                viewPos = pos;
+                startEvent();
             }
         });
 
@@ -75,25 +77,21 @@ public class TeacherActivity extends AppCompatActivity {
         });
     }
 
-    public void startCreate()
-    {
+    public void startCreate() {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
     }
 
-    public void startEvent()
-    {
+    public void startEvent() {
         Intent intent = new Intent(this, EventActivity.class);
         startActivity(intent);
     }
 
-    public void setValue(List<Event> list)
-    {
+    public void setValue(List<Event> list) {
         events.addAll(list);
     }
 
-    public void updateUI(int end)
-    {
+    public void updateUI(int end) {
         eventAdapter.notifyItemRangeChanged(0, end);
     }
 }

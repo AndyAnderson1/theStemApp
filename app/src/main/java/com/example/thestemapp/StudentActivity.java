@@ -10,12 +10,26 @@ import android.widget.TextView;
 
 public class StudentActivity extends AppCompatActivity {
 
+    private Button Events;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        MainActivity.getCurrentUser().getPoints();
-        System.out.println(MainActivity.getCurrentUser().pointValue());
+        Events = (Button) findViewById(R.id.Event);
+
+        Events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startEventList();
+            }
+        });
+    }
+
+    public void startEventList()
+    {
+        Intent intent = new Intent(this, EventListActivity.class);
+        startActivity(intent);
     }
 }

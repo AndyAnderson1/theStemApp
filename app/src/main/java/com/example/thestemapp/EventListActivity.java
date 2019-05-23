@@ -1,27 +1,27 @@
 package com.example.thestemapp;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher
-{
-    private String user;
-    private ArrayList<String> list = new ArrayList <>();
+public class EventListActivity extends AppCompatActivity {
 
-    public Teacher(String name)
-    {
-        user = name;
+    List <String> teachers = new ArrayList <>();
+    List<Event> events = new ArrayList <>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_event_list);
 
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Teachers");
@@ -31,7 +31,7 @@ public class Teacher
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try
                 {
-                    list = dataSnapshot.getValue(ArrayList.class);
+                    teachers = dataSnapshot.getValue(ArrayList.class);
                 }   catch(Exception e) {
                 }
             }
@@ -42,15 +42,9 @@ public class Teacher
             }
         });
 
-        list.add(user);
-        dr.setValue(list);
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+        for(String x : teachers)
+        {
+            DatabaseReference data = FirebaseDatabase.getInstance().getReference("Events/" + x);
+        }
     }
 }
