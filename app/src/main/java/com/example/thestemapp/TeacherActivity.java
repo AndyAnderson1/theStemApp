@@ -27,6 +27,7 @@ public class TeacherActivity extends AppCompatActivity {
     EventAdapter eventAdapter;
 
     public static int viewPos;
+    public static Event currEvent;
 
     List<Event> events = new ArrayList <>();
 
@@ -41,9 +42,14 @@ public class TeacherActivity extends AppCompatActivity {
         ValueEventListener vl = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<Event>> t = new GenericTypeIndicator <List <Event>>() {};
-                setValue(dataSnapshot.getValue(t));
-                eventAdapter.notifyItemRangeChanged(0, events.size());
+                try {
+                    GenericTypeIndicator <List <Event>> t = new GenericTypeIndicator <List <Event>>() {};
+                    setValue(dataSnapshot.getValue(t));
+                    eventAdapter.notifyItemRangeChanged(0, events.size());
+                } catch(Exception e)
+                {
+
+                }
             }
 
             @Override
@@ -65,6 +71,7 @@ public class TeacherActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int pos) {
                 viewPos = pos;
+                currEvent = events.get(pos);
                 startEvent();
             }
         });
@@ -89,9 +96,5 @@ public class TeacherActivity extends AppCompatActivity {
 
     public void setValue(List<Event> list) {
         events.addAll(list);
-    }
-
-    public void updateUI(int end) {
-        eventAdapter.notifyItemRangeChanged(0, end);
     }
 }

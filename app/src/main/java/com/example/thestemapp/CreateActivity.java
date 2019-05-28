@@ -56,13 +56,13 @@ public class CreateActivity extends AppCompatActivity {
                 if(dataSnapshot.getValue(temp) != null)
                 {
                     tempList.addAll(dataSnapshot.getValue(temp));
-                    tempList.add(new Event(event.getText().toString(), teach.getText().toString(), Integer.valueOf(points.getText().toString())));
+                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), Integer.valueOf(points.getText().toString())));
                     addEvent(tempList);
                 }
                 else
                 {
                     //System.out.println("EMPTY");
-                    tempList.add(new Event(event.getText().toString(), teach.getText().toString(), Integer.valueOf(points.getText().toString())));
+                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), Integer.valueOf(points.getText().toString())));
                     addEvent(tempList);
                 }
             }

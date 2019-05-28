@@ -19,20 +19,8 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Events/"+MainActivity.getCurrentTeacher().getUser()+"/"+TeacherActivity.viewPos);
+        evt = TeacherActivity.currEvent;
 
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                evt = dataSnapshot.getValue(Event.class);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        System.out.println(evt);
     }
 }

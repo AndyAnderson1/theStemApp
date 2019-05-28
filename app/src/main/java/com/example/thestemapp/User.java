@@ -30,7 +30,7 @@ public class User {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
                         point = dataSnapshot.getValue(Integer.class);
-                        System.out.println(point + " " + user);
+                        //System.out.println(point + " " + user);
                     } catch (NullPointerException e) {
                         point = 0;
                         setPoint("Users/" + user + "/Points");
