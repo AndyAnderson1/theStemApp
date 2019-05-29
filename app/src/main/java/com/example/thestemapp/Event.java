@@ -1,5 +1,8 @@
 package com.example.thestemapp;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +70,13 @@ public class Event
         if(!users.contains(name)) {
             users.add(name);
         }
+    }
+
+    public void removeUser(String teacher, int event, int name)
+    {
+        users.remove(name);
+
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Events/"+teacher+"/"+event+"/users/"+name);
+        db.removeValue();
     }
 }

@@ -68,9 +68,9 @@ public class User {
         this.mail = mail;
     }
 
-    public void increasePoints()
+    public void increasePoints(int i)
     {
-        point++;
+        point+=i;
         setPoint("Users/" + user + "/Points");
     }
 

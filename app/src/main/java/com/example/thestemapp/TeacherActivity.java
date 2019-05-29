@@ -36,6 +36,8 @@ public class TeacherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
+        events.clear();
+
         final FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentTeacher().getUser());
 
