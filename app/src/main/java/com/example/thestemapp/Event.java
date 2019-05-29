@@ -64,6 +64,8 @@ public class Event
 
     public void addUser(String name)
     {
-        users.add(name);
+        if(!users.contains(name)) {
+            users.add(name);
+        }
     }
 }
