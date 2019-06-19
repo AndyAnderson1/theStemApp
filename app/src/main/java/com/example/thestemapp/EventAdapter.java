@@ -27,6 +27,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
 
     public EventAdapter(List<Event> data)
     {
+        System.out.println(data);
         list = data;
     }
 

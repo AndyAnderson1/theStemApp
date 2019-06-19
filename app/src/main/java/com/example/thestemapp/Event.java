@@ -76,7 +76,7 @@ public class Event
     {
         users.remove(name);
 
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Events/"+teacher+"/"+event+"/users/"+name);
-        db.removeValue();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Events/"+teacher+"/"+event+"/users");
+        db.setValue(users);
     }
 }

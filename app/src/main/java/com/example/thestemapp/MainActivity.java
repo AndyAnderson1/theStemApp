@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private static User currentUser = null;
     private static Teacher currentTeacher = null;
 
+    //Remove
     private Button skip;
+    private Button admin;
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
@@ -49,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 teacherLogin();
+            }
+        });
+
+        admin = (Button) findViewById(R.id.admin);
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adminLogin();
             }
         });
 
@@ -127,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(GoogleSignInAccount user) {
         if (user != null) {
-            currentUser = new User(user.getDisplayName(), user.getEmail());
+            currentUser = new User(user.getDisplayName());
             Intent intent = new Intent(this, StudentActivity.class);
             startActivity(intent);
         } else {
@@ -147,6 +158,12 @@ public class MainActivity extends AppCompatActivity {
     {
         currentTeacher = new Teacher("Nicholas");
         Intent intent = new Intent(this, TeacherActivity.class);
+        startActivity(intent);
+    }
+
+    public void adminLogin()
+    {
+        Intent intent = new Intent(this, AdminActivity.class);
         startActivity(intent);
     }
 

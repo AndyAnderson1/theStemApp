@@ -43,6 +43,7 @@ public class JoinActivity extends AppCompatActivity {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Events/" + e.getMentor()+"/"+EventListActivity.currPos);
         db.setValue(e);
         Intent intent = new Intent(this, EventListActivity.class);
+        intent.putExtra("Admin", false);
         startActivity(intent);
     }
 }

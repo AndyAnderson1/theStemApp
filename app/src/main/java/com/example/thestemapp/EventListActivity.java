@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
 
-    List<Event> events = new ArrayList <>();
+    public static List<Event> events = new ArrayList <>();
 
     RecyclerView recyclerView;
     EventAdapter evtAdapter;
@@ -29,10 +29,16 @@ public class EventListActivity extends AppCompatActivity {
     public static Event currEvent;
     public static int currPos;
 
+    boolean admin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        events.clear();
+
+        admin = getIntent().getExtras().getBoolean("Admin");
 
         final FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Teachers");
@@ -49,9 +55,14 @@ public class EventListActivity extends AppCompatActivity {
                     data.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            GenericTypeIndicator<List<Event>> t = new GenericTypeIndicator <List <Event>>() {};
-                            events.addAll(dataSnapshot.getValue(t));
-                            evtAdapter.notifyItemRangeChanged(0, events.size());
+                            try {
+                                GenericTypeIndicator <List <Event>> t = new GenericTypeIndicator <List <Event>>() {};
+                                events.addAll(dataSnapshot.getValue(t));
+                                evtAdapter.notifyItemRangeChanged(0, events.size());
+                            } catch(Exception e)
+                            {
+
+                            }
                         }
 
                         @Override
@@ -80,7 +91,13 @@ public class EventListActivity extends AppCompatActivity {
             public void onItemClick(View v, int pos) {
                 currEvent = events.get(pos);
                 currPos = pos;
-                startJoin();
+                if(admin)
+                {
+                    startLog();
+                }
+                else {
+                    startJoin();
+                }
             }
         });
     }
@@ -88,6 +105,12 @@ public class EventListActivity extends AppCompatActivity {
     public void startJoin()
     {
         Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
+    }
+
+    public void startLog()
+    {
+        Intent intent = new Intent(this, LogActivity.class);
         startActivity(intent);
     }
 }

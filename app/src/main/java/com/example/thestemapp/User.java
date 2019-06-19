@@ -11,13 +11,11 @@ import com.google.firebase.database.ValueEventListener;
 public class User {
 
     private String user;
-    private String mail;
     private int point;
 
-    public User(String name, String email)
+    public User(String name)
     {
         user = name;
-        mail = email;
         getPoints();
     }
 
@@ -30,11 +28,10 @@ public class User {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
                         point = dataSnapshot.getValue(Integer.class);
-                        //System.out.println(point + " " + user);
                     } catch (NullPointerException e) {
+                        System.out.println(":(");
                         point = 0;
-                        setPoint("Users/" + user + "/Points");
-                        System.out.println("UPOEDUI");
+                        setPoints();
                     }
                 }
 
@@ -45,10 +42,10 @@ public class User {
     }
 
     //Overwrites a new point value into the database for a user
-    public void setPoint(String path)
+    public void setPoints()
     {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        DatabaseReference db = fb.getReference(path);
+        DatabaseReference db = fb.getReference("Users/" + user + "/Points");
         db.setValue(point);
     }
 
@@ -60,18 +57,29 @@ public class User {
         this.user = user;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public void increasePoints(int i)
     {
-        point+=i;
-        setPoint("Users/" + user + "/Points");
+        final int j = i;
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fb.getReference("Users/" + user + "/Points");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    point = dataSnapshot.getValue(Integer.class);
+                    point += j;
+                    setPoints();
+                } catch (NullPointerException e) {
+                    System.out.println(":(");
+                    point = 0;
+                    setPoints();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     public int pointValue()

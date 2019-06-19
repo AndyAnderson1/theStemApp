@@ -39,7 +39,7 @@ public class CreateActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createEvent();
+                    createEvent();
             }
         });
     }
