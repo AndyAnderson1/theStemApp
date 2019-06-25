@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Stem App</string>
+    <string name="points"># of Points</string>
+    <string name="event">Event Name</string>
 </resources>

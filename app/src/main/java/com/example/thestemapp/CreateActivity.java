@@ -26,6 +26,8 @@ public class CreateActivity extends AppCompatActivity {
 
     List <Event> tempList = new ArrayList <>();
 
+    public int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,13 @@ public class CreateActivity extends AppCompatActivity {
         FirebaseDatabase fb = FirebaseDatabase.getInstance();
         DatabaseReference dr = fb.getReference("Events/"+MainActivity.getCurrentTeacher().getUser());
 
+        try
+        {
+            i = Integer.valueOf(points.getText().toString());
+        } catch (Exception e){
+            i = 1;
+        }
+
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -56,13 +65,13 @@ public class CreateActivity extends AppCompatActivity {
                 if(dataSnapshot.getValue(temp) != null)
                 {
                     tempList.addAll(dataSnapshot.getValue(temp));
-                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), Integer.valueOf(points.getText().toString())));
+                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), i));
                     addEvent(tempList);
                 }
                 else
                 {
                     //System.out.println("EMPTY");
-                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), Integer.valueOf(points.getText().toString())));
+                    tempList.add(new Event(event.getText().toString(), MainActivity.getCurrentTeacher().getUser(), i));
                     addEvent(tempList);
                 }
             }
